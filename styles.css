@@ -1,19 +1,14 @@
 body {
-	margin: 0 auto;
+	margin: 0;
+	padding: 0;
 	font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+}
+
+main {
+	margin: 0 auto;
 	border: 1px solid black;
-}
-
-@media only screen and (max-width: 1000px) {
-	body {
-		width:100%;
-	}
-}
-
-@media only screen and (min-width: 1000px) {
-	body {
-		width:50%;
-	}
+	border-top:none;
+	width:50%;
 }
 
 .center {
@@ -70,7 +65,7 @@ h5 {
 	text-align: center;
 }
 
-ul {
+section ul {
 	display: block;
 	list-style-type: disc; 
 	margin-top: 1em; 
@@ -80,7 +75,7 @@ ul {
 	padding-left: 40px;
 }
 
-li  {
+section li  {
 	display: list-item;
 	margin-bottom: 8px;
 }
@@ -111,3 +106,33 @@ li  {
 .br {
 	margin-top:32px;
 }
+
+nav {
+	width:100%;
+	background-color: #44546A;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 0 0 10%;
+  overflow: hidden;
+  background-color: #44546A;
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+	background-color: #202f45;
+}
+
