@@ -9,19 +9,7 @@ let sel;
 let sliderLabel;
 let playBtn;
 
-let run = false;
-let algorithm = "Bubble";
-
-let startingValues = {
-	"Bubble" : {
-		i  : 0,
-		j : 0
-	},
-	"Insertion" : {
-		i : 1,
-		j : 1
-	}
-}
+let stop = true;
 
 function setup() {
 	newList();	
@@ -53,17 +41,33 @@ function createGui() {
 	sel.position(windowWidth/2-width/2+50,windowHeight/2+height/2);
 	sel.option("Bubble Sort");
 	sel.option("Insertion Sort");
+	sel.option("Quick Sort")
 
 	sel.changed(onSelectChange);
 
-	playBtn = createButton("Play");
+	playBtn = createButton("Run");
 	playBtn.position(windowWidth/2-width/2 + 160, windowHeight/2+height/2);
 	playBtn.mousePressed(function() {
-		run = !run;
-		if(run) {
-			playBtn.html("Pause");
-		} else {
-			playBtn.html("Play");
+		if(!stop) {
+			stop = true;
+			return;
+		}
+		switch(sel.value()) {
+			case "Bubble Sort":
+				stop = false;
+				bubbleSort();
+				break;
+			case "Insertion Sort":
+				stop = false;
+				insertionSort();
+				break;
+			case "Quick Sort":
+				stop = false;
+				quickSort(list, 0,listSize-1);
+				break;
+			default:
+				console.log("Error");
+				break;
 		}
 	});
 
@@ -90,80 +94,81 @@ function newList() {
 	}
 }
 
-function setStartValues() {
-	algorithm = sel.value().split(" ")[0];
-	i = startingValues[algorithm].i;
-	j = startingValues[algorithm].j;
-}
-
 function onSelectChange() {
-	run = false;
-	setStartValues();
 	newList();
 }
 
 function draw() {
 	background(0);
 	drawValues();
+}
 
-	if(!run) {
-		return;
+async function bubbleSort() {
+	for(var i = 0; i < listSize; i++) {
+		for(var j = 0; j < listSize-i-1; j++) {
+			if(stop) {
+				return;
+			}
+			if(list[j] > list[j+1]) {
+				var temp = list[j];
+				list[j] = list[j+1];
+				list[j+1] = temp;
+				await sleep(25);
+			}
+		}
 	}
+}
 
-	switch(algorithm) {
-		case "Bubble":
-			bubbleSort();
-			break;
-		case "Insertion":
-			insertionSort();
-			break;
-		default:
+async function insertionSort() {
+	for(var i = 0; i < listSize; i++) {
+		for(j = i; list[j-1] > list[j]; j--) {
+			if(stop) {
+				return;
+			}
+			var temp = list[j-1];
+			list[j-1] = list[j];
+			list[j] = temp;
+			await sleep(25);
+		}
+	}
+}
+
+
+async function quickSort(list, low, high) {
+	if(low < high) {
+		var pi = await partition(list, low, high);
+		if(stop) {
 			return;
+		}
+		await Promise.all([
+			quickSort(list, low, pi-1),
+			quickSort(list, pi+1, high)
+		]);
 	}
 }
 
-function bubbleSort() {
+async function partition(list, low, high) {
+	var pivot = list[high];
+	var i = low - 1;
+	for(var j = low; j < high; j++) {
+		if(stop) {
+			return;
+		}
+		if(list[j] < pivot) {
+			i++;
 
-	if(list[j] > list[j+1]) {
-		var temp = list[j];
-		list[j] = list[j+1];
-		list[j+1] = temp;
-	}
-	j++;
-	if(j >= list.length-i-1) {
-		i++;
-		j = 0;
-	}
-}
-
-function insertionSort() {
-	if(i >= list.length) {
-		return;
+			await sleep(25);
+			var temp = list[i];
+			list[i] = list[j];
+			list[j] = temp;
+		}
 	}
 
-	if(!sorting) {
-		j = i;
-	}
+	var temp = list[i+1];
+	list[i+1] = list[high];
+	list[high] = temp;
 
-	if(list[j] < list[j-1] && j >= 0) {
-		sorting = true;
-		var temp = list[j-1];
-		list[j-1] = list[j];
-		list[j] = temp;
-		j--;
-	} else {
-		sorting = false;
-	}
-	
-	if(!sorting) {
-		i++;
-	}
-}
-
-function generateList() {
-	for(var i = 0; i < 100; i++) {
-		list.push(int(random(0,101)));
-	}
+	return i+1;
 }
 
 function drawValues() {
@@ -178,4 +183,8 @@ function drawValues() {
 		var y = height - (n * height / 100);
 		rect(i * rectWidth, y, rectWidth, height - y);
 	});
+}
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
