@@ -3,8 +3,11 @@ var i = 0;
 var j = 0;
 var sorting;
 var rectWidth;
+var listSize = 100;
 
 let sel;
+let sliderLabel;
+let playBtn;
 
 let run = false;
 let algorithm = "Bubble";
@@ -27,13 +30,13 @@ function setup() {
   	var y = (windowHeight - height) / 2;
   	cnv.position(x, y);
 	frameRate(60);
-	rectWidth = width / list.length;
+	rectWidth = width / listSize;
 	createGui();
 }
 
 function populateList() {
 	list = [];
-	for(var i = 0; i < 100; i++) {
+	for(var i = 0; i < listSize; i++) {
 		list.push(int(random(0,101)));
 	}	
 }
@@ -50,23 +53,41 @@ function createGui() {
 	sel.position(windowWidth/2-width/2+50,windowHeight/2+height/2);
 	sel.option("Bubble Sort");
 	sel.option("Insertion Sort");
+
 	sel.changed(onSelectChange);
 
-	start = createButton("Play");
-	start.position(windowWidth/2-width/2 + 160, windowHeight/2+height/2);
-	start.mousePressed(function() {
+	playBtn = createButton("Play");
+	playBtn.position(windowWidth/2-width/2 + 160, windowHeight/2+height/2);
+	playBtn.mousePressed(function() {
 		run = !run;
 		if(run) {
-			start.label = "Pause";
+			playBtn.html("Pause");
 		} else {
-			start.html = "Play";
+			playBtn.html("Play");
 		}
 	});
+
+	slider = createSlider(1,200,100);
+	slider.position(windowWidth/2-width/2 + 220, windowHeight/2+height/2);
+	slider.input(updateSlider);
+	sliderLabel = createP(slider.value());
+	sliderLabel.position((windowWidth/2-width/2) + 360, windowHeight/2+height/2);
+}
+
+function updateSlider() {
+	run = false;
+	listSize = slider.value();
+	newList();
+	sliderLabel.html(listSize);
+	rectWidth = width / listSize;
 }
 
 function newList() {
 	run = false;
 	populateList();
+	if(playBtn) {
+		playBtn.html("Play");
+	}
 }
 
 function setStartValues() {
