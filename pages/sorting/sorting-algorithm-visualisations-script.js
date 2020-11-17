@@ -41,7 +41,10 @@ function populateList() {
 function createGui() {
 	reset = createButton("New");
 	reset.position(windowWidth/2-width/2,windowHeight/2+height/2);
-	reset.mousePressed(newList);
+	reset.mousePressed(function() {
+		newList();
+		setStartValues();
+	});
 
 	sel = createSelect();
 	sel.position(windowWidth/2-width/2+50,windowHeight/2+height/2);
@@ -66,11 +69,16 @@ function newList() {
 	populateList();
 }
 
-function onSelectChange() {
-	run = false;
+function setStartValues() {
 	algorithm = sel.value().split(" ")[0];
 	i = startingValues[algorithm].i;
 	j = startingValues[algorithm].j;
+}
+
+function onSelectChange() {
+	run = false;
+	setStartValues();
+	newList();
 }
 
 function draw() {
