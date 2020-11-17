@@ -4,14 +4,7 @@ body {
 	font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 }
 
-main {
-	margin: 0 auto;
-	border: 1px solid black;
-	border-top:none;
-	width:50%;
-}
-
-.center {
+.center, canvas {
 	margin: auto;
 	text-align: center;
 }
@@ -87,6 +80,10 @@ section li  {
 
 .row {
 	display: flex;
+	margin: 0 auto;
+	border: 1px solid black;
+	border-top:none;
+	width:50%;
 }
 
 #left p {
@@ -134,4 +131,11 @@ nav li a {
 
 .active, li a:hover {
 	background-color: #202f45;
+}
+
+#sketchHolder {
+  width: 960px;
+  height: 540px;
+  margin: 0 auto;
+  position: relative;
 }
