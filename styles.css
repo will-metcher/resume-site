@@ -86,12 +86,12 @@ section li  {
 	background-color: white;
 }
 
-.row:nth-child(even) {
+#portfolio .row:nth-child(even) {
 	margin-top: 0;
 	border-top: none;
 }
 
-.row:nth-child(even), .row:nth-child(even) > * {
+#portfolio .row:nth-child(even), #portfolio .row:nth-child(even) > * {
 	background-color: #E7E6E6;
 }
 
@@ -165,7 +165,7 @@ nav li a {
 }
 
 .portfolio-img {
-	flex:0.20;
+	flex:0.2;
 }
 
 .portfolio-img img {
