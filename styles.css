@@ -41,15 +41,15 @@ h3 {
 	font-size: 24px;
 	text-decoration: underline;
 	font-weight: bold;
-	padding-bottom: 8px;
-	padding-top: 8px;
+	padding-bottom: 0.5em;
+	padding-top: 0.5em;
 	text-align: center;
 }
 
 h4 {
 	font-size: 20px;
 	font-weight: bold;
-	padding-bottom: 8px;
+	padding-bottom: 0.5em;
 	text-align: center;
 }
 
@@ -81,8 +81,18 @@ section li  {
 .row {
 	display: flex;
 	margin: 0 auto;
+	margin-top: 10px;
 	border: 1px solid black;
-	border-top:none;
+	background-color: white;
+}
+
+.row:nth-child(even) {
+	margin-top: 0;
+	border-top: none;
+}
+
+.row:nth-child(even), .row:nth-child(even) > * {
+	background-color: #E7E6E6;
 }
 
 @media only screen and (max-width:1000px) {
@@ -93,7 +103,7 @@ section li  {
 
 @media only screen and (min-width:1000px) {
 	.row {
-		width:50%;
+		width:60%;
 	}
 }
 
@@ -144,8 +154,32 @@ nav li a {
 	background-color: #202f45;
 }
 
-.
-
 .option-group-heading {
 	font-weight: bold;
+}
+
+.portfolio-item {
+	cursor: pointer;
+	display: flex;
+	background-color: white;
+}
+
+.portfolio-img {
+	flex:0.20;
+}
+
+.portfolio-img img {
+	width:100%;
+}
+
+.portfolio-desc {
+	flex:0.8;
+	float:left;
+	padding:16px;
+}
+
+.portfolio-title {
+	font-weight: bold;
+	font-size:1.5em;
+	margin: 20px 0 20px 0;
 }
