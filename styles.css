@@ -86,9 +86,8 @@ section li  {
 	background-color: white;
 }
 
-#portfolio .row:nth-child(even) {
-	margin-top: 0;
-	border-top: none;
+#portfolio .row {
+	border:none;
 }
 
 #portfolio .row:nth-child(even), #portfolio .row:nth-child(even) > * {
@@ -179,6 +178,14 @@ nav li a {
 	position: relative;
 }
 
+.language-icons {
+	position: absolute;
+	top: 0;
+	padding: 0;
+	margin: 0;
+	right: 0;
+}
+
 .portfolio-title {
 	font-weight: bold;
 	font-size:1.5em;
@@ -186,11 +193,8 @@ nav li a {
 }
 
 svg {
-	width:5%;
-	position: absolute;
+	width:64px;
+	float:right;
 	padding: 0;
 	margin:0;
-	top:0;
-	right:0;
-
 }
