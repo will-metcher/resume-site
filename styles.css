@@ -2,6 +2,9 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 
 .center, canvas {
@@ -82,6 +85,7 @@ section li  {
 	display: flex;
 	margin: 0 auto;
 	margin-top: 10px;
+	margin-bottom: 10px;
 	border: 1px solid black;
 	background-color: white;
 }
@@ -95,13 +99,13 @@ section li  {
 }
 
 @media only screen and (max-width:1200px) {
-	.row {
+	.row, footer section{
 		width:100%;
 	}
 }
 
 @media only screen and (min-width:1200px) {
-	.row {
+	.row, footer section{
 		width:60%;
 	}
 }
@@ -153,10 +157,6 @@ nav li a {
 	background-color: #202f45;
 }
 
-.option-group-heading {
-	font-weight: bold;
-}
-
 .portfolio-item {
 	cursor: pointer;
 	display: flex;
@@ -205,17 +205,21 @@ svg {
 
 footer {
 	width:100%;
-	height:auto;
 	background-color: #313036;
 }
 
-footer div {
-	width:33.33%;
-	float:left;
+footer section {
+	margin:0 auto;
+	display: flex;
+}
+
+footer section div {
+	flex:0.3;
 	color:white;
 	padding: 16px 32px;
 	box-sizing: border-box;
  	background-color: #313036;
+ 	margin:0 auto;
 }
 
 footer div a {
