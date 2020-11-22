@@ -33,8 +33,8 @@ function createGui() {
 	reset = createButton("New");
 	reset.position(windowWidth/2-width/2,windowHeight/2+height/2);
 	reset.mousePressed(function() {
+		stop = true;
 		newList();
-		setStartValues();
 	});
 
 	sel = createSelect();
@@ -95,6 +95,7 @@ function newList() {
 }
 
 function onSelectChange() {
+	stop = true;
 	newList();
 }
 
