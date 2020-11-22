@@ -149,7 +149,7 @@ nav li a {
   text-decoration: none;
 }
 
-.active, li a:hover {
+.active, nav li a:hover {
 	background-color: #202f45;
 }
 
@@ -192,9 +192,45 @@ nav li a {
 	margin: 20px 0 20px 0;
 }
 
-svg {
+.language-icons svg {
 	width:64px;
 	float:right;
 	padding: 0;
 	margin:0;
+}
+
+svg {
+	width:16px;
+}
+
+footer {
+	width:100%;
+	height:auto;
+	background-color: #313036;
+}
+
+footer div {
+	width:33.33%;
+	float:left;
+	color:white;
+	padding: 16px 32px;
+	box-sizing: border-box;
+ 	background-color: #313036;
+}
+
+footer div a {
+	color:white;
+	text-decoration: none;
+}
+
+#footer-contact ul {
+	list-style: none;
+	padding: 0;
+}
+
+
+.footer-title {
+	color:white;
+	font-size: 24px;
+	font-weight: bold;
 }
