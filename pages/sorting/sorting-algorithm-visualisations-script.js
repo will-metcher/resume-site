@@ -22,10 +22,10 @@ function setup() {
 	createGui();
 }
 
-function populateList() {
+function populateList(min, max) {
 	list = [];
 	for(var i = 0; i < listSize; i++) {
-		list.push(int(random(0,101)));
+		list.push(int(random(min,max)));
 	}	
 }
 
@@ -42,6 +42,7 @@ function createGui() {
 	sel.option("Bubble Sort");
 	sel.option("Insertion Sort");
 	sel.option("Quick Sort")
+	sel.option("Counting Sort");
 
 	sel.changed(onSelectChange);
 
@@ -52,18 +53,19 @@ function createGui() {
 			stop = true;
 			return;
 		}
+		stop = false;
 		switch(sel.value()) {
 			case "Bubble Sort":
-				stop = false;
 				bubbleSort();
 				break;
 			case "Insertion Sort":
-				stop = false;
 				insertionSort();
 				break;
 			case "Quick Sort":
-				stop = false;
 				quickSort(list, 0,listSize-1);
+				break;
+			case "Counting Sort":
+				countingSort(slider.value());
 				break;
 			default:
 				console.log("Error");
@@ -88,7 +90,7 @@ function updateSlider() {
 
 function newList() {
 	run = false;
-	populateList();
+	populateList(0,101);
 	if(playBtn) {
 		playBtn.html("Play");
 	}
@@ -172,12 +174,39 @@ async function partition(list, low, high) {
 	return i+1;
 }
 
+async function countingSort(k) {
+	populateList(0,k);
+	var count = new Array(k).fill(0);
+
+	for(var i = 0; i < list.length; i++) {
+		count[list[i]]++;
+	}
+
+	var count2 = new Array(k);
+	var cumulative = 0;
+	for(var j = 0; j < count.length; j++) {
+		cumulative += count[j];
+		count2[j] = cumulative;
+	}
+
+	var listCopy = [...list];
+
+	for(var i = listCopy.length-1; i >= 0; i--) {
+		var num = listCopy[i];
+		var index = --count2[num];
+		list[index] = num;
+		await sleep(25);
+	}
+
+}
+
 function drawValues() {
+	var max = list.reduce(function(a,b) { return Math.max(a,b);});
 	list.forEach(function(n, i) {
 		if(i === j) {
 			fill(255);
 		} else {
-			var mapped = map(n,0,100,0,255);
+			var mapped = map(n,0,max,0,255);
 			colorMode(HSB);
 			fill(mapped,255,255);
 		}
