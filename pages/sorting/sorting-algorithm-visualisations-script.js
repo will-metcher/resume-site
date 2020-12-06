@@ -206,7 +206,7 @@ function drawValues() {
 		if(i === j) {
 			fill(255);
 		} else {
-			var mapped = map(n,0,max,0,255);
+			var mapped = map(n,0,max,0,360);
 			colorMode(HSB);
 			fill(mapped,255,255);
 		}
