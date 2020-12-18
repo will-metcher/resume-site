@@ -89,7 +89,7 @@ function updateSlider() {
 
 function newList() {
 	run = false;
-	populateList(0,101);
+	populateList(1,101);
 	if(playBtn) {
 		playBtn.html("Play");
 	}
@@ -174,36 +174,22 @@ async function partition(list, low, high) {
 }
 
 async function countingSort(k) {
-	var count = new Array(k).fill(0);
+	var count = new Array(k+1).fill(0);
 
 	for(var i = 0; i < list.length; i++) {
-		count[list[i]]++;
+		++count[list[i]];
 	}
 
-	var count2 = new Array(k);
-	var cumulative = 0;
-	for(var j = 0; j < count.length; j++) {
-		cumulative += count[j];
-		count2[j] = cumulative;
+	for(var i = 1; i <= k; i++) {
+		count[i] = count[i] + count[i - 1];
 	}
 
 	var listCopy = [...list];
 
-	for(var i = listCopy.length-1; i >= 0; i--) {
-		var num = listCopy[i];
-		var index = --count2[num];
-		list[index] = num;
+	for(var i = listCopy.length - 1; i >= 0; i--) {
+		list[--count[listCopy[i]]] = listCopy[i];
 		await sleep(25);
 	}
-
-}
-
-function cloneArray(arr) {
-	var newArray = []
-	for(var i = 0; i < arr.length; i++) {
-		newArray[i] = arr[i].slice();
-	}
-	return newArray;
 }
 
 function drawValues() {
