@@ -130,6 +130,7 @@ function cloneArray(arr) {
 	return newArray;
 }
 
+
 function draw() {
 	background(0);
 	for(var x = 0; x < cells.length; x++) {
