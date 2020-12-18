@@ -6,7 +6,6 @@ var rectWidth;
 var listSize = 100;
 
 let sel;
-let sliderLabel;
 let playBtn;
 
 let stop = true;
@@ -30,24 +29,27 @@ function populateList(min, max) {
 }
 
 function createGui() {
+	guiContainer = createDiv();
+	guiContainer.position(windowWidth/2-width/2,windowHeight/2+height/2);
+
 	reset = createButton("New");
-	reset.position(windowWidth/2-width/2,windowHeight/2+height/2);
+	reset.parent(guiContainer);
 	reset.mousePressed(function() {
 		stop = true;
 		newList();
 	});
 
 	sel = createSelect();
-	sel.position(windowWidth/2-width/2+50,windowHeight/2+height/2);
+	sel.parent(guiContainer);
 	sel.option("Bubble Sort");
 	sel.option("Insertion Sort");
-	sel.option("Quick Sort")
+	sel.option("Quick Sort");
 	sel.option("Counting Sort");
 
 	sel.changed(onSelectChange);
 
 	playBtn = createButton("Run");
-	playBtn.position(windowWidth/2-width/2 + 160, windowHeight/2+height/2);
+	playBtn.parent(guiContainer);
 	playBtn.mousePressed(function() {
 		if(!stop) {
 			stop = true;
@@ -74,17 +76,14 @@ function createGui() {
 	});
 
 	slider = createSlider(1,200,100);
-	slider.position(windowWidth/2-width/2 + 220, windowHeight/2+height/2);
+	slider.parent(guiContainer);
 	slider.input(updateSlider);
-	sliderLabel = createP(slider.value());
-	sliderLabel.position((windowWidth/2-width/2) + 360, windowHeight/2+height/2);
 }
 
 function updateSlider() {
 	run = false;
 	listSize = slider.value();
 	newList();
-	sliderLabel.html(listSize);
 	rectWidth = width / listSize;
 }
 
@@ -175,7 +174,6 @@ async function partition(list, low, high) {
 }
 
 async function countingSort(k) {
-	populateList(0,k);
 	var count = new Array(k).fill(0);
 
 	for(var i = 0; i < list.length; i++) {
@@ -200,16 +198,20 @@ async function countingSort(k) {
 
 }
 
+function cloneArray(arr) {
+	var newArray = []
+	for(var i = 0; i < arr.length; i++) {
+		newArray[i] = arr[i].slice();
+	}
+	return newArray;
+}
+
 function drawValues() {
 	var max = list.reduce(function(a,b) { return Math.max(a,b);});
 	list.forEach(function(n, i) {
-		if(i === j) {
-			fill(255);
-		} else {
-			var mapped = map(n,0,max,0,360);
-			colorMode(HSB);
-			fill(mapped,255,255);
-		}
+		var mapped = map(n,0,max,0,360);
+		colorMode(HSB);
+		fill(mapped,255,255);
 		var y = height - (n * height / 100);
 		rect(i * rectWidth, y, rectWidth, height - y);
 	});
