@@ -56,6 +56,7 @@ function createGui() {
   sel.parent(guiContainer);
   sel.option("Bubble Sort");
   sel.option("Insertion Sort");
+  sel.option("Shell Sort");
   sel.option("Quick Sort");
   sel.option("Counting Sort");
 
@@ -82,8 +83,11 @@ function createGui() {
       case "Counting Sort":
         countingSort(slider.value());
         break;
+      case "Shell Sort":
+        shellSort();
+        break;
       default:
-        console.log("Error");
+        console.error("Error");
         break;
     }
   });
@@ -216,6 +220,23 @@ async function countingSort(k) {
     await sleep(25);
   }
 
+  stop = true;
+}
+
+async function shellSort() {
+  for (var gap = floor(list.length / 2); gap >= 1; gap = floor(gap / 2)) {
+    for (var j = gap; j < list.length; j++) {
+      for (var i = j - gap; i >= 0; i -= gap) {
+        comparisons++;
+        if (list[i + gap] > list[i]) {
+          break;
+        } else {
+          swap(list, i + gap, i);
+        }
+        await sleep(25);
+      }
+    }
+  }
   stop = true;
 }
 
