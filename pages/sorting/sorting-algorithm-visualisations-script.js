@@ -1,9 +1,13 @@
 let list = [];
-var i = 0;
-var j = 0;
-var sorting;
-var rectWidth;
-var listSize = 100;
+let sorting;
+let rectWidth;
+let listSize = 100;
+let comparisons = 0;
+let swaps = 0;
+let iterations = 0;
+let ms = 0;
+let seconds = 0;
+let fontSize = 20;
 
 let sel;
 let playBtn;
@@ -16,9 +20,17 @@ function setup() {
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
   cnv.position(x, y);
-  frameRate(60);
+  frameRate(50);
   rectWidth = width / listSize;
   createGui();
+}
+
+function resetCounters() {
+  comparisons = 0;
+  iterations = 0;
+  swaps = 0;
+  seconds = 0;
+  ms = 0;
 }
 
 function populateList(min, max) {
@@ -26,6 +38,7 @@ function populateList(min, max) {
   for (var i = 0; i < listSize; i++) {
     list.push(int(random(min, max)));
   }
+  resetCounters();
 }
 
 function createGui() {
@@ -75,7 +88,7 @@ function createGui() {
     }
   });
 
-  slider = createSlider(1, 200, 100);
+  slider = createSlider(1, listSize * 2, listSize);
   slider.parent(guiContainer);
   slider.input(updateSlider);
 }
@@ -93,6 +106,7 @@ function newList() {
   if (playBtn) {
     playBtn.html("Play");
   }
+  resetCounters();
 }
 
 function onSelectChange() {
@@ -108,36 +122,45 @@ function draw() {
 async function bubbleSort() {
   for (var i = 0; i < listSize; i++) {
     for (var j = 0; j < listSize - i - 1; j++) {
+      iterations++;
       if (stop) {
         return;
       }
       if (list[j] > list[j + 1]) {
-        var temp = list[j];
-        list[j] = list[j + 1];
-        list[j + 1] = temp;
+        comparisons++;
+        swap(list, j, j + 1);
         await sleep(25);
       }
     }
   }
+  stop = true;
+}
+
+function swap(arr, i, j) {
+  var temp = arr[j];
+  arr[j] = arr[i];
+  arr[i] = temp;
+  swaps++;
 }
 
 async function insertionSort() {
   for (var i = 0; i < listSize; i++) {
     for (j = i; list[j - 1] > list[j]; j--) {
+      iterations++;
       if (stop) {
         return;
       }
-      var temp = list[j - 1];
-      list[j - 1] = list[j];
-      list[j] = temp;
+      swap(list, j, j - 1);
       await sleep(25);
     }
   }
+  stop = true;
 }
 
 
 async function quickSort(list, low, high) {
   if (low < high) {
+    comparisons++;
     var pi = await partition(list, low, high);
     if (stop) {
       return;
@@ -147,12 +170,14 @@ async function quickSort(list, low, high) {
       quickSort(list, pi + 1, high)
     ]);
   }
+  stop = true;
 }
 
 async function partition(list, low, high) {
   var pivot = list[high];
   var i = low - 1;
   for (var j = low; j < high; j++) {
+    iterations++;
     if (stop) {
       return;
     }
@@ -160,15 +185,12 @@ async function partition(list, low, high) {
       i++;
 
       await sleep(25);
-      var temp = list[i];
-      list[i] = list[j];
-      list[j] = temp;
+      swap(list, i, j);
+      comparisons++;
     }
   }
 
-  var temp = list[i + 1];
-  list[i + 1] = list[high];
-  list[high] = temp;
+  swap(list, i + 1, high);
 
   return i + 1;
 }
@@ -177,19 +199,24 @@ async function countingSort(k) {
   var count = new Array(k + 1).fill(0);
 
   for (var i = 0; i < list.length; i++) {
+    iterations++;
     ++count[list[i]];
   }
 
   for (var i = 1; i <= k; i++) {
+    iterations++;
     count[i] = count[i] + count[i - 1];
   }
 
   var listCopy = [...list];
 
   for (var i = listCopy.length - 1; i >= 0; i--) {
+    iterations++;
     list[--count[listCopy[i]]] = listCopy[i];
     await sleep(25);
   }
+
+  stop = true;
 }
 
 function drawValues() {
@@ -203,6 +230,26 @@ function drawValues() {
     var y = height - (n * height / 100);
     rect(i * rectWidth, y, rectWidth, height - y);
   });
+
+  fill(255);
+  textSize(fontSize);
+  text("Swaps: " + swaps, 5, fontSize);
+  text("Comparisons: " + comparisons, 5, fontSize * 2);
+  text("Iterations: " + iterations, 5, fontSize * 3);
+  text("Elapsed: " + seconds + ":" + ms, 5, fontSize * 4);
+
+  timer();
+}
+
+function timer() {
+  if (stop) {
+    return;
+  }
+  ms += 20;
+  if (ms >= 1000) {
+    ms = 0;
+    seconds++;
+  }
 }
 
 function sleep(ms) {
