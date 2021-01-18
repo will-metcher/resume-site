@@ -92,7 +92,7 @@ function createGui() {
     }
   });
 
-  slider = createSlider(1, listSize * 2, listSize);
+  slider = createSlider(3, listSize * 2, listSize);
   slider.parent(guiContainer);
   slider.input(updateSlider);
 }
@@ -174,7 +174,10 @@ async function quickSort(list, low, high) {
       quickSort(list, pi + 1, high)
     ]);
   }
-  stop = true;
+
+  if (isSorted(list)) {
+    stop = true;
+  }
 }
 
 async function partition(list, low, high) {
@@ -197,6 +200,15 @@ async function partition(list, low, high) {
   swap(list, i + 1, high);
 
   return i + 1;
+}
+
+function isSorted(list) {
+  for (var i = 0; i < list.length - 1; i++) {
+    if (list[i] > list[i + 1]) {
+      return false;
+    }
+  }
+  return true;
 }
 
 async function countingSort(k) {
@@ -257,7 +269,8 @@ function drawValues() {
   text("Swaps: " + swaps, 5, fontSize);
   text("Comparisons: " + comparisons, 5, fontSize * 2);
   text("Iterations: " + iterations, 5, fontSize * 3);
-  text("Elapsed: " + seconds + ":" + ms, 5, fontSize * 4);
+  text("Size: " + list.length, 5, fontSize * 4);
+  text("Elapsed: " + seconds + "." + ms, 5, fontSize * 5);
 
   timer();
 }
