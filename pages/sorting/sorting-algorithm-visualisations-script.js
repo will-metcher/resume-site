@@ -45,56 +45,49 @@ function createGui() {
   guiContainer = createDiv();
   guiContainer.position(windowWidth / 2 - width / 2, windowHeight / 2 + height / 2);
 
-  reset = createButton("New");
-  reset.parent(guiContainer);
+  reset = addButton("New", guiContainer, "p5-buttons");
   reset.mousePressed(function() {
     stop = true;
     newList();
   });
 
-  sel = createSelect();
-  sel.parent(guiContainer);
-  sel.option("Bubble Sort");
-  sel.option("Insertion Sort");
-  sel.option("Shell Sort");
-  sel.option("Quick Sort");
-  sel.option("Counting Sort");
-
+  sel = addSelect(guiContainer, ["Bubble Sort", "Insertion Sort", "Shell Sort", "Quick Sort", "Counting Sort"], "p5-select");
   sel.changed(onSelectChange);
 
-  playBtn = createButton("Run");
-  playBtn.parent(guiContainer);
-  playBtn.mousePressed(function() {
-    if (!stop) {
-      stop = true;
-      return;
-    }
-    stop = false;
-    switch (sel.value()) {
-      case "Bubble Sort":
-        bubbleSort();
-        break;
-      case "Insertion Sort":
-        insertionSort();
-        break;
-      case "Quick Sort":
-        quickSort(list, 0, listSize - 1);
-        break;
-      case "Counting Sort":
-        countingSort(slider.value());
-        break;
-      case "Shell Sort":
-        shellSort();
-        break;
-      default:
-        console.error("Error");
-        break;
-    }
-  });
+  playBtn = addButton("Run", guiContainer, "p5-buttons");
+  playBtn.mousePressed(runSort);
 
   slider = createSlider(3, listSize * 2, listSize);
   slider.parent(guiContainer);
   slider.input(updateSlider);
+}
+
+function runSort() {
+  if (!stop) {
+    stop = true;
+    return;
+  }
+  stop = false;
+  switch (sel.value()) {
+    case "Bubble Sort":
+      bubbleSort();
+      break;
+    case "Insertion Sort":
+      insertionSort();
+      break;
+    case "Quick Sort":
+      quickSort(list, 0, listSize - 1);
+      break;
+    case "Counting Sort":
+      countingSort(slider.value());
+      break;
+    case "Shell Sort":
+      shellSort();
+      break;
+    default:
+      console.error("Error");
+      break;
+  }
 }
 
 function updateSlider() {

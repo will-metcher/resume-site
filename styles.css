@@ -244,3 +244,16 @@ footer div a:hover {
   font-size: 24px;
   font-weight: bold;
 }
+
+.p5-buttons {
+  padding: 12px 32px;
+  border: 1px solid #008CBA;
+  background-color: #008CBA;
+  color: #fff;
+  margin: 0 auto;
+}
+
+.p5-select {
+  padding: 10px 32px;
+  margin: 0 auto;
+}
