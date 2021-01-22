@@ -1,6 +1,8 @@
 let nodes = [];
 let connections = [];
 let ellipseWidth = 64;
+let addingConnection = false;
+let newConnections = [];
 
 class Node {
   constructor(x, y, id) {
@@ -8,6 +10,7 @@ class Node {
     this.y = y;
     this.id = id;
     this.connections = [];
+    this.selected = false;
   }
 
   addConnection(node) {
@@ -43,14 +46,13 @@ function dijkstra() {
     for (var n = 0; n < node.connections.length; n++) {
       var neighbour = getNodeByID(node.connections[n]);
       var distance = distances[i] + getConnection(node.id, neighbour.id).distance;
-      console.log(node.id, neighbour.id, distance, distances[i]);
       if (distance < distances[neighbour.id]) {
         distances[neighbour.id] = distance;
       }
     }
   }
 
-  return distances;
+  console.log(distances);
 }
 
 function getNodeByID(id) {
@@ -80,7 +82,7 @@ function getConnection(n1, n2) {
   return null;
 }
 
-function addNode(x, y) {
+function addNode(x = width / 2, y = height / 2) {
   nodes.push(new Node(x, y, nodes.length));
 }
 
@@ -113,11 +115,11 @@ function setup() {
   addConnection(4, 5);
   addConnection(3, 5);
   addConnection(0, 2);
-  console.log(dijkstra());
+  createGUI();
 }
 
 function mouseDragged() {
-  if (mouseX > width || mouseY > height || mouseX < 0 || mouseY < 0) {
+  if (!isMouseInBounds(mouseX, mouseY, width, height) || addingConnection) {
     return;
   }
   var node = getNodeByID(getElementClicked(mouseX, mouseY));
@@ -131,6 +133,24 @@ function mouseDragged() {
   });
 }
 
+function mousePressed() {
+  nodes.forEach(function(node) {
+    node.selected = false;
+  });
+
+  if (!isMouseInBounds(mouseX, mouseY, width, height)) {
+    return;
+  }
+  var node = getNodeByID(getElementClicked(mouseX, mouseY));
+  if (node == null) {
+    return;
+  }
+  if (addingConnection && !newConnections.includes(node.id)) {
+    newConnections.push(node.id);
+  }
+  node.selected = true;
+}
+
 function getElementClicked(x, y) {
   var r = ellipseWidth / 2;
   for (var i = 0; i < nodes.length; i++) {
@@ -139,6 +159,25 @@ function getElementClicked(x, y) {
     }
   }
   return -1;
+}
+
+function createGUI() {
+  var guiContainer = addContainer();
+  var runBtn = addButton("Run", guiContainer, "p5-buttons");
+  runBtn.mousePressed(dijkstra);
+
+  var addNodeBtn = addButton("Add Node", guiContainer, "p5-buttons");
+  addNodeBtn.mousePressed(addNode);
+
+  var addConnectionBtn = addButton("Add Connection", guiContainer, "p5-buttons");
+  addConnectionBtn.mousePressed(function() {
+    addingConnection = true;
+  })
+
+  var resetBtn = addButton("Reset", guiContainer, "p5-buttons");
+  resetBtn.mousePressed(function() {
+    location.reload();
+  });
 }
 
 function draw() {
@@ -155,9 +194,18 @@ function draw() {
 
   nodes.forEach(function(node, i) {
     fill(255, 0, 0);
+    if (node.selected) {
+      fill(0, 127, 127);
+    }
     noStroke();
     ellipse(node.x, node.y, ellipseWidth);
     fill(255);
     text(String.fromCharCode(65 + node.id), node.x, node.y);
   });
+
+  if (newConnections.length == 2) {
+    addConnection(newConnections[0], newConnections[1]);
+    newConnections = [];
+    addingConnection = false;
+  }
 }

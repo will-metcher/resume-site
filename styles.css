@@ -253,6 +253,11 @@ footer div a:hover {
   margin: 0 auto;
 }
 
+.p5-buttons:hover {
+  background-color: #00516c;
+  border-color: #00516c;
+}
+
 .p5-select {
   padding: 10px 32px;
   margin: 0 auto;

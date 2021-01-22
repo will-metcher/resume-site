@@ -23,7 +23,6 @@ function generateCells() {
     var row = [];
     for (var j = 0; j < height / cellSize; j++) {
       row.push(random() < 0.5);
-      //row.push(false);
     }
     cells.push(row);
   }
@@ -34,20 +33,17 @@ function createGUI() {
   guiContainer.position(windowWidth / 2 - width / 2, windowHeight / 2 + height / 2);
   guiContainer.id("gui");
 
-  playBtn = createButton("Run");
-  playBtn.parent(guiContainer);
+  playBtn = addButton("Run", guiContainer, "p5-buttons");
   playBtn.mousePressed(function() {
     pause();
   });
 
-  var clearBtn = createButton("Clear");
-  clearBtn.parent(guiContainer);
+  var clearBtn = addButton("Clear", guiContainer, "p5-buttons");
   clearBtn.mousePressed(function() {
     clearCells();
   });
 
-  var randomBtn = createButton("Randomize");
-  randomBtn.parent(guiContainer);
+  var randomBtn = addButton("Randomize", guiContainer, "p5-buttons");
   randomBtn.mousePressed(function() {
     generateCells();
   });
