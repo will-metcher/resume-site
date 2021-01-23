@@ -6,9 +6,9 @@
   <link rel="stylesheet" type="text/css" href="../../styles.css">
   <link rel="icon" type="image/png" sizes="32x32" href="../../imgs/icon.png">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.min.js"></script>
-  <script type="text/javascript" src="dijikstra.js"></script>
+  <script type="text/javascript" src="dijkstra.js"></script>
   <script type="text/javascript" src="../util.js"></script>
-  <title>Will Metcher | Dijikstra's Algorithm</title>
+  <title>Will Metcher | Dijkstra's Algorithm</title>
 </head>
 
 <body>
@@ -20,6 +20,16 @@
       <li><a href="../contact.html">Contact</a></li>
     </ul>
   </nav>
+  <section id="help-popup">
+    <h4>Help</h4>
+    <p>Edsger W. Dijkstra created this algorithm in 1956 to find the shortest path to each node in a graph. When run, the shortest path to each node is listed in the table. For help creating your own graph, see below.</p>
+    <br>
+    <p class="bold">Adding a new connection</p>
+    <p>1. Click 'Add Connection'</p>
+    <p>2. Click on the two nodes you want to connect</p>
+    <br>
+    <button class="p5-buttons close-btn center" onclick="toggleHelpPopup()">Close</button>
+  </section>
 </body>
 
 </html>

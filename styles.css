@@ -256,9 +256,33 @@ footer div a:hover {
 .p5-buttons:hover {
   background-color: #00516c;
   border-color: #00516c;
+  cursor: pointer;
 }
 
 .p5-select {
   padding: 10px 32px;
   margin: 0 auto;
+}
+
+#help-popup {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform: translateX(-50%);
+  border: 1px solid black;
+  z-index: 100;
+  background-color: #fff;
+  padding: 16px;
+  visibility: hidden;
+}
+
+.close-btn {
+  border: 1px solid #F00;
+  background-color: #F00;
+}
+
+.close-btn:hover {
+  background-color: #B20000;
+  border-color: #B20000;
+  cursor: pointer;
 }

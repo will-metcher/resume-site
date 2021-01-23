@@ -178,6 +178,20 @@ function createGUI() {
   resetBtn.mousePressed(function() {
     location.reload();
   });
+
+  var helpBtn = addButton("Help", guiContainer, "p5-buttons");
+  helpBtn.mousePressed(function() {
+    toggleHelpPopup();
+  });
+}
+
+function toggleHelpPopup() {
+  var popup = document.getElementById("help-popup");
+  if (window.getComputedStyle(popup).visibility == 'hidden') {
+    popup.style.visibility = "visible";
+  } else {
+    popup.style.visibility = "hidden";
+  }
 }
 
 function draw() {
@@ -195,7 +209,7 @@ function draw() {
   nodes.forEach(function(node, i) {
     fill(255, 0, 0);
     if (node.selected) {
-      fill(0, 127, 127);
+      fill(0, 140, 186);
     }
     noStroke();
     ellipse(node.x, node.y, ellipseWidth);
