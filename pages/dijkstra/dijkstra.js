@@ -3,6 +3,7 @@ let connections = [];
 let ellipseWidth = 64;
 let addingConnection = false;
 let newConnections = [];
+let simWidth = 0;
 
 class Node {
   constructor(x, y, id) {
@@ -31,7 +32,7 @@ class Connection {
   calculateDistance() {
     var n1 = getNodeByID(this.n1);
     var n2 = getNodeByID(this.n2);
-    this.distance = Math.abs(Math.sqrt(Math.pow(n1.x - n2.x, 2) + Math.pow(n1.y - n2.y, 2)));
+    this.distance = Math.round(Math.abs(Math.sqrt(Math.pow(n1.x - n2.x, 2) + Math.pow(n1.y - n2.y, 2))));
   }
 }
 
@@ -52,7 +53,7 @@ function dijkstra() {
     }
   }
 
-  console.log(distances);
+  updateTable(distances);
 }
 
 function getNodeByID(id) {
@@ -82,7 +83,7 @@ function getConnection(n1, n2) {
   return null;
 }
 
-function addNode(x = width / 2, y = height / 2) {
+function addNode(x = simWidth / 2, y = height / 2) {
   nodes.push(new Node(x, y, nodes.length));
 }
 
@@ -99,6 +100,7 @@ function setup() {
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
   cnv.position(x, y);
+  simWidth = width * 0.75;
   frameRate(60);
   addNode(100, 100);
   addNode(300, 300);
@@ -116,10 +118,11 @@ function setup() {
   addConnection(3, 5);
   addConnection(0, 2);
   createGUI();
+  dijkstra();
 }
 
 function mouseDragged() {
-  if (!isMouseInBounds(mouseX, mouseY, width, height) || addingConnection) {
+  if (!isMouseInBounds(mouseX, mouseY, simWidth, height) || addingConnection) {
     return;
   }
   var node = getNodeByID(getElementClicked(mouseX, mouseY));
@@ -131,6 +134,8 @@ function mouseDragged() {
   connections.forEach(function(connection) {
     connection.calculateDistance();
   });
+
+  dijkstra();
 }
 
 function mousePressed() {
@@ -138,7 +143,7 @@ function mousePressed() {
     node.selected = false;
   });
 
-  if (!isMouseInBounds(mouseX, mouseY, width, height)) {
+  if (!isMouseInBounds(mouseX, mouseY, simWidth, height)) {
     return;
   }
   var node = getNodeByID(getElementClicked(mouseX, mouseY));
@@ -163,8 +168,6 @@ function getElementClicked(x, y) {
 
 function createGUI() {
   var guiContainer = addContainer();
-  var runBtn = addButton("Run", guiContainer, "p5-buttons");
-  runBtn.mousePressed(dijkstra);
 
   var addNodeBtn = addButton("Add Node", guiContainer, "p5-buttons");
   addNodeBtn.mousePressed(addNode);
@@ -183,6 +186,30 @@ function createGUI() {
   helpBtn.mousePressed(function() {
     toggleHelpPopup();
   });
+
+  var tableDiv = createDiv();
+  tableDiv.id("tableDiv");
+  tableDiv.position(windowWidth / 2 + width / 4, (windowHeight - height) / 2);
+  tableDiv.size(width - simWidth, height);
+
+  var table = document.createElement("table");
+  table.id = "dijikstra-table";
+
+
+  table.append(addTableRow(["Node", "Distance from A"], true));
+
+  for (var i = 0; i < nodes.length; i++) {
+    table.append(addTableRow([String.fromCharCode(65 + nodes[i].id), 0], false, i.toString()));
+  }
+
+  tableDiv.child(table);
+}
+
+function updateTable(distances) {
+  for (var i = 0; i < nodes.length; i++) {
+    var cell = document.getElementsByClassName(i)[1];
+    cell.innerHTML = distances[i];
+  }
 }
 
 function toggleHelpPopup() {
@@ -198,12 +225,19 @@ function draw() {
   textAlign(CENTER, CENTER);
   ellipseMode(CENTER);
   background(127);
+  textSize(20);
   connections.forEach(function(connection) {
     strokeWeight(8);
     stroke(0);
     var n1 = getNodeByID(connection.n1);
     var n2 = getNodeByID(connection.n2);
     line(n1.x, n1.y, n2.x, n2.y);
+    var midX = (n1.x + n2.x) / 2;
+    var midY = (n1.y + n2.y) / 2;
+    stroke(255);
+    strokeWeight(0);
+    fill(255);
+    text(connection.distance, midX, midY);
   });
 
   nodes.forEach(function(node, i) {
@@ -219,7 +253,17 @@ function draw() {
 
   if (newConnections.length == 2) {
     addConnection(newConnections[0], newConnections[1]);
+    dijkstra();
     newConnections = [];
     addingConnection = false;
   }
+
+  drawTable();
+}
+
+function drawTable() {
+  fill(255);
+  strokeWeight(2);
+  stroke(0);
+  rect(simWidth, 0, width - simWidth, height);
 }

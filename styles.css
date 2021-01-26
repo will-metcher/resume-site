@@ -286,3 +286,20 @@ footer div a:hover {
   border-color: #B20000;
   cursor: pointer;
 }
+
+#dijikstra-table {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+#dijikstra-table, th, td {
+  border: 1px solid black;
+}
+
+#dijikstra-table td {
+  width: 50%;
+  font-size: 24px;
+  display: table-cell;
+  padding-top: 16px;
+}
