@@ -299,7 +299,6 @@ footer div a:hover {
 
 #dijikstra-table td {
   width: 50%;
-  font-size: 24px;
+  font-size: 20px;
   display: table-cell;
-  padding-top: 16px;
 }

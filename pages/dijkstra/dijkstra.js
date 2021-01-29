@@ -25,7 +25,7 @@ class Connection {
   constructor(n1, n2) {
     this.n1 = n1;
     this.n2 = n2;
-    this.distance = 0;
+    this.distance = Infinity;
     this.calculateDistance();
   }
 
@@ -85,6 +85,7 @@ function getConnection(n1, n2) {
 
 function addNode(x = simWidth / 2, y = height / 2) {
   nodes.push(new Node(x, y, nodes.length));
+  document.getElementById("dijikstra-table").append(addTableRow([String.fromCharCode(65 + nodes[nodes.length - 1].id), 0], false, (nodes.length - 1).toString()));
 }
 
 function addConnection(n1, n2) {
@@ -101,6 +102,7 @@ function setup() {
   var y = (windowHeight - height) / 2;
   cnv.position(x, y);
   simWidth = width * 0.75;
+  createGUI();
   frameRate(60);
   addNode(100, 100);
   addNode(300, 300);
@@ -117,7 +119,6 @@ function setup() {
   addConnection(4, 5);
   addConnection(3, 5);
   addConnection(0, 2);
-  createGUI();
   dijkstra();
 }
 
@@ -170,7 +171,9 @@ function createGUI() {
   var guiContainer = addContainer();
 
   var addNodeBtn = addButton("Add Node", guiContainer, "p5-buttons");
-  addNodeBtn.mousePressed(addNode);
+  addNodeBtn.mousePressed(function() {
+    addNode();
+  });
 
   var addConnectionBtn = addButton("Add Connection", guiContainer, "p5-buttons");
   addConnectionBtn.mousePressed(function() {
@@ -196,11 +199,7 @@ function createGUI() {
   table.id = "dijikstra-table";
 
 
-  table.append(addTableRow(["Node", "Distance from A"], true));
-
-  for (var i = 0; i < nodes.length; i++) {
-    table.append(addTableRow([String.fromCharCode(65 + nodes[i].id), 0], false, i.toString()));
-  }
+  table.append(addTableRow(["Node", "Shortest path from A"], true));
 
   tableDiv.child(table);
 }
