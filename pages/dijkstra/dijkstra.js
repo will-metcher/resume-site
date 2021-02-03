@@ -1,3 +1,9 @@
+/*
+// TODO: Add remove node buttons
+// TODO: Add remove connection buttons
+// TODO: Ability to change connection length
+*/
+
 let nodes = [];
 let connections = [];
 let ellipseWidth = 64;
