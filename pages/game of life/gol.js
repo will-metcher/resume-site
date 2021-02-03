@@ -4,7 +4,8 @@ let play = false;
 let playBtn;
 
 function setup() {
-  var cnv = createCanvas(700, 700);
+  var w = Math.ceil(windowHeight * 0.8 / cellSize) * cellSize;
+  var cnv = createCanvas(w,w);
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
   cnv.position(x, y);

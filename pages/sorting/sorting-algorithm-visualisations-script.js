@@ -16,7 +16,7 @@ let stop = true;
 
 function setup() {
   newList();
-  var cnv = createCanvas(1080, 720);
+  var cnv = createCanvas(windowWidth * 0.8, windowHeight * 0.8);
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
   cnv.position(x, y);

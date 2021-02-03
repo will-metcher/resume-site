@@ -7,7 +7,8 @@
 let nodes = [];
 let connections = [];
 let ellipseWidth = 64;
-let addingConnection = false;
+//addingConnection, removingConnection, removingNode, empty
+let state = "";
 let newConnections = [];
 let simWidth = 0;
 
@@ -89,9 +90,27 @@ function getConnection(n1, n2) {
   return null;
 }
 
+function removeConnectionsWith(id) {
+  for (var i = 0; i < connections.length; i++) {
+    if (connections[i].n1 == id || connections[i].n2 == id) {
+      console.log("removing " + i);
+      connections.splice(i, 1);
+    }
+  }
+}
+
 function addNode(x = simWidth / 2, y = height / 2) {
   nodes.push(new Node(x, y, nodes.length));
   document.getElementById("dijikstra-table").append(addTableRow([String.fromCharCode(65 + nodes[nodes.length - 1].id), 0], false, (nodes.length - 1).toString()));
+}
+
+function removeNode(node) {
+  if (node.id == 0) {
+    return;
+  }
+  removeConnectionsWith(node.id);
+  nodes.splice(nodes.indexOf(node), 1);
+  state = "";
 }
 
 function addConnection(n1, n2) {
@@ -103,7 +122,7 @@ function addConnection(n1, n2) {
 }
 
 function setup() {
-  var cnv = createCanvas(1080, 720);
+  var cnv = createCanvas(windowWidth * 0.8, windowHeight * 0.8);
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
   cnv.position(x, y);
@@ -111,11 +130,11 @@ function setup() {
   createGUI();
   frameRate(60);
   addNode(100, 100);
-  addNode(300, 300);
-  addNode(500, 100);
-  addNode(500, 400);
-  addNode(700, 150);
-  addNode(720, 550);
+  addNode(200, 300);
+  addNode(300, 100);
+  addNode(400, 400);
+  addNode(500, 150);
+  addNode(600, 450);
   addConnection(0, 1);
   addConnection(1, 2);
   addConnection(2, 5);
@@ -129,7 +148,7 @@ function setup() {
 }
 
 function mouseDragged() {
-  if (!isMouseInBounds(mouseX, mouseY, simWidth, height) || addingConnection) {
+  if (!isMouseInBounds(mouseX, mouseY, simWidth, height) || state != "") {
     return;
   }
   var node = getNodeByID(getElementClicked(mouseX, mouseY));
@@ -157,9 +176,13 @@ function mousePressed() {
   if (node == null) {
     return;
   }
-  if (addingConnection && !newConnections.includes(node.id)) {
+  if (state == "addingConnection" && !newConnections.includes(node.id)) {
     newConnections.push(node.id);
+  } else if (state == "removingNode") {
+    removeNode(node);
+    return;
   }
+
   node.selected = true;
 }
 
@@ -177,13 +200,21 @@ function createGUI() {
   var guiContainer = addContainer();
 
   var addNodeBtn = addButton("Add Node", guiContainer, "p5-buttons");
-  addNodeBtn.mousePressed(function() {
-    addNode();
+  addNodeBtn.mousePressed(addNode);
+
+  var removeNodeBtn = addButton("Remove Node", guiContainer, "p5-buttons");
+  removeNodeBtn.mousePressed(function() {
+    state = "removingNode";
   });
 
   var addConnectionBtn = addButton("Add Connection", guiContainer, "p5-buttons");
   addConnectionBtn.mousePressed(function() {
-    addingConnection = true;
+    state = "addingConnection";
+  });
+
+  var removeConnectionBtn = addButton("Remove Connection", guiContainer, "p5-buttons");
+  removeConnectionBtn.mousePressed(function() {
+    console.log("remove");
   })
 
   var resetBtn = addButton("Reset", guiContainer, "p5-buttons");
@@ -236,13 +267,15 @@ function draw() {
     stroke(0);
     var n1 = getNodeByID(connection.n1);
     var n2 = getNodeByID(connection.n2);
-    line(n1.x, n1.y, n2.x, n2.y);
-    var midX = (n1.x + n2.x) / 2;
-    var midY = (n1.y + n2.y) / 2;
-    stroke(255);
-    strokeWeight(0);
-    fill(255);
-    text(connection.distance, midX, midY);
+    if (n1 != null && n2 != null) {
+      line(n1.x, n1.y, n2.x, n2.y);
+      var midX = (n1.x + n2.x) / 2;
+      var midY = (n1.y + n2.y) / 2;
+      stroke(255);
+      strokeWeight(0);
+      fill(255);
+      text(connection.distance, midX, midY);
+    }
   });
 
   nodes.forEach(function(node, i) {
@@ -260,7 +293,7 @@ function draw() {
     addConnection(newConnections[0], newConnections[1]);
     dijkstra();
     newConnections = [];
-    addingConnection = false;
+    state = "";
   }
 
   drawTable();
