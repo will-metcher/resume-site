@@ -128,7 +128,7 @@ function setup() {
   cnv.position(x, y);
   simWidth = width * 0.75;
   createGUI();
-  frameRate(60);
+  frameRate(30);
   addNode(100, 100);
   addNode(200, 300);
   addNode(300, 100);
@@ -202,20 +202,20 @@ function createGUI() {
   var addNodeBtn = addButton("Add Node", guiContainer, "p5-buttons");
   addNodeBtn.mousePressed(addNode);
 
-  var removeNodeBtn = addButton("Remove Node", guiContainer, "p5-buttons");
-  removeNodeBtn.mousePressed(function() {
-    state = "removingNode";
-  });
+  // var removeNodeBtn = addButton("Remove Node", guiContainer, "p5-buttons");
+  // removeNodeBtn.mousePressed(function() {
+  //   state = "removingNode";
+  // });
 
   var addConnectionBtn = addButton("Add Connection", guiContainer, "p5-buttons");
   addConnectionBtn.mousePressed(function() {
     state = "addingConnection";
   });
 
-  var removeConnectionBtn = addButton("Remove Connection", guiContainer, "p5-buttons");
-  removeConnectionBtn.mousePressed(function() {
-    console.log("remove");
-  })
+  // var removeConnectionBtn = addButton("Remove Connection", guiContainer, "p5-buttons");
+  // removeConnectionBtn.mousePressed(function() {
+  //   console.log("remove");
+  // })
 
   var resetBtn = addButton("Reset", guiContainer, "p5-buttons");
   resetBtn.mousePressed(function() {

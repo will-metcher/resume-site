@@ -309,3 +309,7 @@ footer div a:hover {
   font-size: 20px;
   display: table-cell;
 }
+
+#about {
+  border: none;
+}
