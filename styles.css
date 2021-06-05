@@ -1,191 +1,188 @@
 :root {
-  --nav-blue-normal: #44546A;
-  --nav-blue-dark: #202f45;
+  --nav-blue-normal: #255ACC;
+  --nav-blue-dark: #173880;
+  --light: #dce7ff;
   --p5-button-normal: #008CBA;
   --p5-button-dark: #00516c;
+  --body-width: 70%
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+  font-family: "Trebuchet MS","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,sans-serif;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100vh
 }
 
-.center, canvas {
+.center,canvas {
   margin: auto;
-  text-align: center;
+  text-align: center
 }
 
 .heading {
   background-color: var(--nav-blue-normal);
   width: 100%;
   margin: 0;
-  padding: 8px;
-  box-sizing: border-box;
+  box-sizing: border-box
 }
 
-.section-text {
-  padding: 8px;
+.heading,.section-text,h1 {
+  padding: 8px
 }
 
-.bold {
-  font-weight: bold;
+a {
+  color: inherit;
+  text-decoration: none
+}
+
+a:hover,h3 {
+  text-decoration: underline
 }
 
 h1 {
-  font-size: 34px;
-  font-weight: bold;
-  padding: 8px;
+  font-size: 34px
 }
 
 h2 {
-  color: white;
-  font-size: 20px;
-  text-align: center;
+  color: #fff;
+  font-size: 20px
 }
 
 h3 {
   font-size: 24px;
-  text-decoration: underline;
-  font-weight: bold;
-  padding-bottom: 0.5em;
-  padding-top: 0.5em;
-  text-align: center;
+  padding-top: .5em
 }
 
-h4 {
-  font-size: 20px;
-  font-weight: bold;
-  padding-bottom: 0.5em;
-  text-align: center;
+.bold,h1,h3,h4 {
+  font-weight: 700
 }
 
-h5 {
-  font-size: 20px;
-  text-align: center;
+h3,h4 {
+  padding-bottom: .5em
+}
+
+h2,h3,h4,h5 {
+  text-align: center
+}
+
+h4,h5 {
+  font-size: 20px
 }
 
 section ul {
   display: block;
   list-style-type: disc;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 40px;
+  margin: 1em 0;
+  padding-left: 40px
 }
 
 section li {
   display: list-item;
-  margin-bottom: 8px;
+  margin-bottom: 8px
 }
 
 #left {
-  background-color: #E7E6E6;
-  flex: 0.3;
+  background-color: var(--light);
+  flex: .3
 }
 
 .row {
   display: flex;
-  margin: 0 auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border: 1px solid black;
-  background-color: white;
+  margin: 10px auto;
+  border: 1px solid #000;
+  background-color: #fff
 }
 
 #portfolio .row {
-  border: none;
+  border: 0
 }
 
-#portfolio .row:nth-child(even), #portfolio .row:nth-child(even)>* {
-  background-color: #E7E6E6;
+#portfolio .row:nth-child(odd),#portfolio .row:nth-child(odd) > * {
+  background-color: var(--light)
 }
 
 @media only screen and (max-width:1200px) {
-  .row, footer section {
-    width: 100%;
+  .row,footer section {
+      width: 100%
   }
 }
 
 @media only screen and (min-width:1200px) {
-  .row, footer section {
-    width: 60%;
+  .row,footer section {
+      width: var(--body-width)
   }
 }
 
 #left p {
-  margin-bottom: 10px;
+  margin-bottom: 10px
 }
 
 #right {
-  flex: 0.7;
-  float: left;
-  padding: 8px;
+  flex: .7;
+  padding: 8px
 }
 
 .underline {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #000
 }
 
 .br {
-  margin-top: 32px;
+  margin-top: 32px
+}
+
+nav,nav ul {
+  background-color: var(--nav-blue-normal)
 }
 
 nav {
-  width: 100%;
-  background-color: var(--nav-blue-normal);
+  width: 100%
 }
 
 nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0 0 0 10%;
-  overflow: hidden;
-  background-color: var(--nav-blue-normal);
+  overflow: hidden
 }
 
-nav li {
-  float: left;
+#right,nav li {
+  float: left
 }
 
 nav li a {
   display: block;
-  color: white;
   text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+  padding: 14px 16px
 }
 
-.active, nav li a:hover {
-  background-color: var(--nav-blue-dark);
+.active,nav li a:hover {
+  background-color: var(--nav-blue-dark)
 }
 
 .portfolio-item {
   cursor: pointer;
   display: flex;
-  background-color: white;
+  background-color: #fff
 }
 
 .portfolio-img {
-  flex: 0.2;
+  flex: .2
 }
 
 .portfolio-img img {
   width: 100%;
   position: relative;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%)
 }
 
 .portfolio-desc {
-  flex: 0.8;
+  flex: .8;
   float: left;
   padding: 16px;
-  position: relative;
+  position: relative
 }
 
 .language-icons {
@@ -193,63 +190,63 @@ nav li a {
   top: 0;
   padding: 0;
   margin: 0;
-  right: 0;
+  right: 0
 }
 
 .portfolio-title {
-  font-weight: bold;
+  font-weight: 700;
   font-size: 1.5em;
-  margin: 20px 0 20px 0;
+  margin: 20px 0
 }
 
 .language-icons svg {
   width: 64px;
   float: right;
   padding: 0;
-  margin: 0;
+  margin: 0
 }
 
 svg {
-  width: 16px;
+  width: 16px
 }
 
 footer {
   width: 100%;
-  background-color: #313036;
+  background-color: #313036
 }
 
 footer section {
   margin: 0 auto;
-  display: flex;
+  display: flex
 }
 
 footer section div {
-  flex: 0.3;
-  color: white;
+  flex: .3;
+  color: #fff;
   padding: 16px 32px;
   box-sizing: border-box;
   background-color: #313036;
-  margin: 0 auto;
+  margin: 0 auto
 }
 
-footer div a {
-  color: white;
-  text-decoration: none;
+footer div a,nav li a {
+  color: #fff;
+  text-decoration: none
 }
 
 footer div a:hover {
-  text-decoration: underline;
+  text-decoration: underline
 }
 
 #footer-contact ul {
   list-style: none;
-  padding: 0;
+  padding: 0
 }
 
 .footer-title {
-  color: white;
+  color: #fff;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 700
 }
 
 .p5-buttons {
@@ -257,18 +254,18 @@ footer div a:hover {
   border: 1px solid var(--p5-button-normal);
   background-color: var(--p5-button-normal);
   color: #fff;
-  margin: 0 auto;
+  margin: 0 auto
 }
 
 .p5-buttons:hover {
   background-color: var(--p5-button-dark);
   border-color: var(--p5-button-dark);
-  cursor: pointer;
+  cursor: pointer
 }
 
 .p5-select {
   padding: 10px 32px;
-  margin: 0 auto;
+  margin: 0 auto
 }
 
 #help-popup {
@@ -276,40 +273,64 @@ footer div a:hover {
   left: 50%;
   bottom: 50%;
   transform: translateX(-50%);
-  border: 1px solid black;
+  border: 1px solid #000;
   z-index: 100;
   background-color: #fff;
   padding: 16px;
-  visibility: hidden;
+  visibility: hidden
 }
 
 .close-btn {
-  border: 1px solid #F00;
-  background-color: #F00;
+  border: 1px solid red;
+  background-color: red
 }
 
 .close-btn:hover {
-  background-color: #B20000;
-  border-color: #B20000;
-  cursor: pointer;
+  background-color: #b20000;
+  border-color: #b20000;
+  cursor: pointer
 }
 
 #dijikstra-table {
   width: 100%;
   height: 100%;
-  text-align: center;
+  text-align: center
 }
 
-#dijikstra-table, th, td {
-  border: 1px solid black;
+#dijikstra-table,td,th {
+  border: 1px solid #000
 }
 
 #dijikstra-table td {
   width: 50%;
   font-size: 20px;
-  display: table-cell;
+  display: table-cell
 }
 
 #about {
-  border: none;
+  border: 0
+}
+
+#links {
+  width: calc(var(--body-width) / 2);
+}
+
+#links-table {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  border: 0;
+  font-size: 1.5em;
+}
+
+#links-table td {
+  border:none;
+}
+
+#links-table td {
+  padding: 16px 32px
+}
+
+#links-table tr:nth-child(odd), #links-table tr:nth-child(odd) > * {
+  background-color: var(--light);
 }
