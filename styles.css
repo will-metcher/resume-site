@@ -63,7 +63,7 @@ h3,h4 {
   padding-bottom: .5em
 }
 
-h2,h3,h4,h5 {
+h2,h3, h4 {
   text-align: center
 }
 
@@ -92,7 +92,7 @@ section li {
   display: flex;
   margin: 10px auto;
   border: 1px solid #000;
-  background-color: #fff
+  background-color: #fff;
 }
 
 #portfolio .row {
@@ -104,14 +104,20 @@ section li {
 }
 
 @media only screen and (max-width:1200px) {
-  .row,footer section {
-      width: 100%
+  .row, footer section {
+      width: 100%;
   }
 }
 
 @media only screen and (min-width:1200px) {
   .row,footer section {
       width: var(--body-width)
+  }
+}
+
+@media only print {
+  nav, footer {
+    display: none;
   }
 }
 
