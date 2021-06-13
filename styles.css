@@ -4,7 +4,7 @@
   --light: #dce7ff;
   --p5-button-normal: #008CBA;
   --p5-button-dark: #00516c;
-  --body-width: 70%
+  --body-width: 70%;
 }
 
 body {
@@ -63,17 +63,17 @@ h3,h4 {
   padding-bottom: .5em
 }
 
+h4 {
+  color: var(--nav-blue-normal);
+  font-size: 1.5em
+}
+
 h2,h3 {
   text-align: center
 }
 
 h5 {
-  font-size: 1.3em;
-}
-
-h4 {
-  color:var(--nav-blue-normal);
-  font-size: 1.5em;
+  font-size: 1.3em
 }
 
 section ul {
@@ -97,20 +97,20 @@ section li {
   display: flex;
   margin: 10px auto;
   border: 1px solid #000;
-  background-color: #fff;
+  background-color: #fff
 }
 
 #portfolio .row {
   border: 0
 }
 
-#portfolio .row:nth-child(odd),#portfolio .row:nth-child(odd) > * {
+#portfolio .row:nth-child(odd),#portfolio .row:nth-child(odd)>* {
   background-color: var(--light)
 }
 
 @media only screen and (max-width:1200px) {
-  .row, footer section {
-      width: 100%;
+  .row,footer section {
+      width: 100%
   }
 }
 
@@ -121,8 +121,8 @@ section li {
 }
 
 @media only print {
-  nav, footer {
-    display: none;
+  footer,nav {
+      display: none
   }
 }
 
@@ -147,7 +147,7 @@ nav,nav ul {
   background-color: var(--nav-blue-normal)
 }
 
-nav {
+footer,nav {
   width: 100%
 }
 
@@ -179,7 +179,7 @@ nav li a {
 }
 
 .portfolio-img {
-  flex: .2;
+  flex: .2
 }
 
 .portfolio-img img {
@@ -222,7 +222,6 @@ svg {
 }
 
 footer {
-  width: 100%;
   background-color: #313036
 }
 
@@ -318,12 +317,12 @@ footer div a:hover {
   display: table-cell
 }
 
-#about {
+#about,#links-table td {
   border: 0
 }
 
 #links {
-  width: calc(var(--body-width) / 2);
+  width: calc(var(--body-width)/2)
 }
 
 #links-table {
@@ -331,33 +330,36 @@ footer div a:hover {
   margin: auto;
   text-align: center;
   border: 0;
-  font-size: 1.5em;
-}
-
-#links-table td {
-  border:none;
+  font-size: 1.5em
 }
 
 #links-table td {
   padding: 16px 32px
 }
 
-#links-table tr:nth-child(odd), #links-table tr:nth-child(odd) > * {
+#links-table tr:nth-child(odd),#links-table tr:nth-child(odd)>* {
   background-color: var(--p5-button-normal);
-  color:#fff;
+  color: #fff
 }
 
-#skills, #skills td{
-  border: none; 
+#skills,#skills td {
+  border: 0
 }
 
-.progress-bar {
-  width:100px;
-  height:25px;
+.skill-title {
+  float: left
+}
+
+.skill-marker {
+  width: 2em;
+  height: .75em;
   border-radius: 4px;
-  border:1px solid black;
+  border: 1px solid #000;
+  float: left;
+  margin-left: 2px
 }
 
-.bar {
-  position:absolute;
+.full {
+  background-color: var(--nav-blue-dark);
+  border: 1px solid var(--nav-blue-dark)
 }

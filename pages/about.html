@@ -38,11 +38,17 @@
 				</section>
 			</section>
 			<section>
+				<h2 class="heading">Languages</h2>
+				<section class="section-text">
+					<table id="skills">
+											
+					</table>
+				</section>
+			</section>
+			<section>
 				<h2 class="heading">Key Strengths & Skills</h2>
 				<section class="section-text">
 					<p class="bold">Technical Skills</p>
-					<p>Proficient in Java, HTML, CSS, JavaScript and Python</p>
-					<p>Experience with C#, PHP and SQL</p>
 					<p>Skillful user of the entire Office 365 suite for over a decade.</p>
 					<p>Advanced technical writing skills.</p>
 					<p>Photo editing & graphic design, using Photoshop</p>
@@ -78,27 +84,6 @@
 						<p>Animals</p>
 					</section>
 				</section>
-				<section>
-					<h2 class="heading">Test</h2>
-					<section class="section-text">
-						<table id="skills">
-							<tr>
-								<td>HTML</td>
-								<td>							
-									<div class="skill-bar">
-										<div class="bar"></div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>CSS</td>
-								<td>
-
-								</td>
-							</tr>								
-						</table>
-					</section>
-				</section>
 			</section>
 
 		</section>
@@ -107,26 +92,26 @@
 			<p>Aspiring software developer with 7 years of programming experience. Experienced working with children through various programs. Currently reading for a Bachelor of Information Technology at RMIT.</p>
 			<h3>Professional Experience</h3>
 			<h4>McDonalds</h4>
-			<h5>Crew member: September 2014 - February 2018</h5>
+			<h5>Crew member: September 2014 - February 2018 (3 years 6 months)</h5>
 			<ul class="underline">
 				<li>Trained to work in the kitchen and experienced customer interaction & service.</li>
 				<li>Collaboration with other crew members to ensure the smooth and efficient operation of the kitchen, specifically in food preparation and kitchen maintenance.</li>
 			</ul>
 			<h4>CoderDojo</h4>
-			<h5>Volunteer Tutor: Term 2 & 3 2016</h5>
+			<h5>Volunteer Tutor: Term 2 & 3 2016 (6 months)</h5>
 			<ul class="underline">
 				<li>Assisting in the operation of a ‘Dojo’ (Classroom).</li>
 				<li>Helping children learn & understand new programming concepts and ideas, while refining and cultivating current ones. Mainly in Scratch, but also HTML and Alice.</li>
 				<li>Assisted in demonstrations involving the deconstruction of a computer and the explanation of its components.</li>
 			</ul>
 			<h4>Chess Mates</h4>
-			<h5>Teacher: March 2018 - January 2020</h5>
+			<h5>Teacher: March 2018 - January 2020 (1 year 10 months)</h5>
 			<ul>
 				<li>Conducting chess lessons for primary school children.</li>
 				<li>Experience in behavior management, childcare and public speaking.</li>
 				<li>Current Blue Card holder.</li>
 			</ul>
-			<h5>Senior Teacher: January 2020 - present</h5>
+			<h5>Senior Teacher: January 2020 - present (1 year 6 months)</h5>
 			<ul>
 				<li>Responsible for training new teachers.</li>
 				<li>Writing curricular.</li>
@@ -142,9 +127,16 @@
 				<li>Created a python script to automatically text parents regarding absentees. Scrapes data from the site, then processes it and sends texts using Twilio.</li>
 			</ul>
 			<h4>Maths Tutor</h4>
-			<h5>Tutor: 2019 - present</h5>
+			<h5>Tutor: 2019 - present (3 years)</h5>
 			<ul class="underline">
 				<li>Helped various high school students with maths.</li>
+			</ul>
+			<h4>Digital Assist</h4>
+			<h5>Tech: December 2020 - present (7 months)</h5>
+			<p>Helped elderly people with technology both over the phone and in person.</p>
+			<ul>
+				<li>Helped with mainly computers, but also iPads and TVs.</li>
+				<li>Researched, purchased and picked up PC peripherals for clients.</li>
 			</ul>
 			<h3>Education & Training</h3>
 			<h4>Brisbane Boys' College: 2008 - 2017</h4>
@@ -161,6 +153,7 @@
 			<h4>Royal Melbourne Institute of Technology: (2018 - present)</h4>
 			<ul>
 				<li>Bachaelor of Information Technology</li>
+				<li>Minor in Internet Communication and </li>
 			</ul>
 		</section>
 	</main>
@@ -260,5 +253,46 @@
 		</section>
 	</footer>
 </body>
+
+<script>
+	let skillAdjs = ["Never used", "Know the basics", "Proficient", "Intermediate", "Advanced"]
+	let skills = {
+		"Java" : 4,
+		"HTML" : 4,
+		"CSS" : 3,
+		"JavaScript" : 4,
+		"Python" : 4,
+		"C#" : 3,
+		"PHP" : 2,
+		"SQL" : 1,
+		"C" : 1
+	};
+
+	function generateSkillTable() {
+		var table = document.getElementById("skills");
+		for(let skill in skills) {
+			var tr = document.createElement("tr");
+			var title = document.createElement("td");
+			title.textContent = skill;
+			tr.appendChild(title);
+
+			var nodes = document.createElement("td");
+			var filledNodes = skills[skill];
+			for(var i = 0; i < 5; i++) {
+				var node = document.createElement("div");
+				node.classList.add("skill-marker");
+				nodes.appendChild(node);
+			}
+
+			for(var j = 0; j < filledNodes; j++) {
+				nodes.childNodes[j].classList.add("full");
+			}
+			tr.appendChild(nodes);
+			table.appendChild(tr);
+		}
+	}
+
+	generateSkillTable();
+</script>
 
 </html>
