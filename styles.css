@@ -51,7 +51,7 @@ h2 {
 }
 
 h3 {
-  font-size: 24px;
+  font-size: 2em;
   padding-top: .5em
 }
 
@@ -63,12 +63,17 @@ h3,h4 {
   padding-bottom: .5em
 }
 
-h2,h3, h4 {
+h2,h3 {
   text-align: center
 }
 
-h4,h5 {
-  font-size: 20px
+h5 {
+  font-size: 1.3em;
+}
+
+h4 {
+  color:var(--nav-blue-normal);
+  font-size: 1.5em;
 }
 
 section ul {
@@ -338,5 +343,21 @@ footer div a:hover {
 }
 
 #links-table tr:nth-child(odd), #links-table tr:nth-child(odd) > * {
-  background-color: var(--light);
+  background-color: var(--p5-button-normal);
+  color:#fff;
+}
+
+#skills, #skills td{
+  border: none; 
+}
+
+.progress-bar {
+  width:100px;
+  height:25px;
+  border-radius: 4px;
+  border:1px solid black;
+}
+
+.bar {
+  position:absolute;
 }
