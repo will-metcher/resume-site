@@ -51,16 +51,10 @@ h2 {
 }
 
 h3 {
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
   font-size: 30px;
   padding-top: .5em;
-=======
->>>>>>> Stashed changes
   font-size: 2em;
   padding-top: .5em
->>>>>>> 1777bb62f9d30a804de3007dfdbecb31b7dc5f6f
 }
 
 .bold,h1,h3,h4 {
@@ -80,19 +74,14 @@ h2,h3 {
   text-align: center
 }
 
-<<<<<<< Updated upstream
-h5 {
-  font-size: 1.3em
-=======
-<<<<<<< HEAD
 h4,h5 {
   font-size: 24px;
   margin-left: 1em;
-=======
+}
+
 h5 {
   font-size: 1.3em
->>>>>>> 1777bb62f9d30a804de3007dfdbecb31b7dc5f6f
->>>>>>> Stashed changes
+
 }
 
 section ul {
