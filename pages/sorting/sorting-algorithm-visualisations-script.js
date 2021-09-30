@@ -8,6 +8,7 @@ let iterations = 0;
 let ms = 0;
 let seconds = 0;
 let fontSize = 20;
+let delay = 0;
 
 let sel;
 let playBtn;
@@ -126,7 +127,7 @@ async function bubbleSort() {
       if (list[j] > list[j + 1]) {
         comparisons++;
         swap(list, j, j + 1);
-        await sleep(25);
+        await sleep(delay);
       }
     }
   }
@@ -148,7 +149,7 @@ async function insertionSort() {
         return;
       }
       swap(list, j, j - 1);
-      await sleep(25);
+      await sleep(delay);
     }
   }
   stop = true;
@@ -184,7 +185,7 @@ async function partition(list, low, high) {
     if (list[j] < pivot) {
       i++;
 
-      await sleep(25);
+      await sleep(delay);
       swap(list, i, j);
       comparisons++;
     }
@@ -222,7 +223,7 @@ async function countingSort(k) {
   for (var i = listCopy.length - 1; i >= 0; i--) {
     iterations++;
     list[--count[listCopy[i]]] = listCopy[i];
-    await sleep(25);
+    await sleep(delay);
   }
 
   stop = true;
@@ -238,7 +239,7 @@ async function shellSort() {
         } else {
           swap(list, i + gap, i);
         }
-        await sleep(25);
+        await sleep(delay);
       }
     }
   }
