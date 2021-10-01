@@ -56,3 +56,11 @@ function addTableCell(text, css = "") {
   }
   return td;
 }
+
+function randomInt(max = 100) {
+  return Math.round(Math.random() * max);
+}
+
+function absVector(v) {
+  return createVector(Math.abs(v.x), Math.abs(v.y));
+}
