@@ -7,16 +7,21 @@ function Boid(x, y) {
 
     this.update = function() {
         this.pos = p5.Vector.add(this.pos, this.vel);
-        if(this.pos.x < 0) {
-            this.pos.x = cnv.width;
-        } else if(this.pos.x > cnv.width) {
+        this.wrap();
+        
+    }
+
+    this.wrap = function() {
+        if (this.pos.x > width) {
             this.pos.x = 0;
+        } else if (this.pos.x < 0) {
+            this.pos.x = width;
         }
 
-        if(this.pos.y < 0) {
-            this.pos.y = cnv.height;
-        } else if(this.pos.y > cnv.height) {
+        if (this.pos.y > height) {
             this.pos.y = 0;
+        } else if (this.pos.y < 0) {
+            this.pos.y = height;
         }
     }
 }
@@ -28,7 +33,7 @@ function setup() {
     cnv.position(x, y);
     frameRate(60);
 
-    for(let i = 0; i < 10; i++) {
+    for(let i = 0; i < 100; i++) {
         boids.push(new Boid(randomInt(cnv.width), randomInt(cnv.height)));
     }
 }
@@ -41,10 +46,13 @@ function draw() {
         rect(boid.pos.x, boid.pos.y, 32, 32);
         boid.pos = p5.Vector.add(boid.pos, cohesion(boid));
     });
+    flocking();
 }
 
 function flocking() {
-
+    boids.forEach(boid => {
+        boid.pos = p5.Vector.add(boid.pos, cohesion(boid));
+    });
 }
 
 function avoidance(boid) {
@@ -55,7 +63,12 @@ function avoidance(boid) {
             continue;
         }
 
-        absVector();
+        if(boid.pos.dist(boids[i].pos) < 100) {
+            let diff = p5.Vector.sub(boid.pos, boids[i].pos);
+            diff.normalize();
+            diff.div(boid.pos.dist(boids[i].pos));
+            avoidanceForce.add(diff);
+        }
     }
 }
 
