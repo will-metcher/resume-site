@@ -1,0 +1,8 @@
+#ascii {
+    margin: 0 auto;
+    padding: 2px;
+    color: rgb(0, 255, 65);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    line-height: 0.6;
+}
