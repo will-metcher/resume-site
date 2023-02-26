@@ -317,6 +317,7 @@ footer a:hover {
 .carousel-container {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     width: 100%;
     align-items: center;
 }
@@ -344,9 +345,16 @@ footer a:hover {
     max-width: 400px;
 }
 
+@media screen and (max-width: 1200px) {
+    .projects-nav {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 800px) {
     #projects {
         flex-direction: column;
+        margin: 0;
     }
 
     .card {
@@ -355,9 +363,5 @@ footer a:hover {
 
     main {
         width: 100%;
-    }
-
-    .projects-nav {
-        display: none;
     }
 }
