@@ -15,14 +15,16 @@
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="resume.html">Resume</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li class="active"><a href="links.html">Links</a></li>
-        </ul>
+    <nav class="topnav" id="myTopnav">
+        <a href="index.html">Home</a>
+        <a href="resume.html" class="active">Resume</a>
+        <a href="projects.html">Projects</a>
+        <a href="links.html">Links</a>
+        <a href="javascript:void(0);" class="icon" onclick="handleResponsiveNav()">
+            <i class="fa fa-bars"></i>
+        </a>
     </nav>
+    
     <footer>
         <section>
             <h2>Quick Links</h2>
