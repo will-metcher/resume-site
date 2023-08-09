@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" type="text/css" href="../../styles.css">
+    <link rel="stylesheet" type="text/css" href="card_game.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../imgs/icon.png">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+        integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../util.js"></script>
+
+    <title>Will Metcher | Card Game</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../about.html">Resume</a></li>
+            <li class="active"><a href="../portfolio.html">Portfolio</a></li>
+            <li><a href="../links.html">Links</a></li>
+        </ul>
+    </nav>
+    <main id="game">
+        <section class="bench"></section>
+        <section class="play-area" data-side="enemy">
+            <div class="play-card" data-side="enemy"></div>
+        </section>
+        <section class="play-area" data-side="mine">
+            <div class="play-card" data-side="mine" data-card="Shadowflame"></div>
+        </section>
+        <section class="bench">
+            <div class="play-card" data-side="mine" data-card="Firebrand"></div>
+            <div class="play-card" data-side="mine" data-card="Sunchaser"></div>
+        </section>
+    </main>
+</body>
+<script type="text/javascript" src="card_game.js"></script>
+
+</html>

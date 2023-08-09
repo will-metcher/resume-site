@@ -1,0 +1,42 @@
+html,
+body {
+    height: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+section {
+    flex: 1;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.play-area {
+    background-color: white;
+}
+
+.bench {
+    background-color: lightblue;
+    max-height: 200px;
+}
+
+.play-card {
+    width: 100px;
+    height: 150px;
+    margin: 10px;
+    background-size: 100% 100%;
+}
+
+.bench .play-card {
+    border: 1px solid black;
+}
+
+.ui-draggable:hover {
+    transform: scale(1.3);
+}

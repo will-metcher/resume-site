@@ -3,89 +3,73 @@ const GRAVITY = 0.5;
 class Game {
     constructor(context) {
         this.context = context;
-        this.sprites = [];
-        this.player = new Player(10, 500);
-        this.addSprite(this.player);
+        this.gameObjects = [];
+        this.player = new Player(100, 100);
+        this.addGameObject(this.player);
+        this.keys = new KeyInput();
         this.draw();
     }
 
-    addSprite(sprite) {
-        this.sprites.push(sprite);
+    addGameObject(object) {
+        this.gameObjects.push(object);
     }
 
-    handleInput(keycode, pressed, held) {
-        if (keycode === 'ArrowLeft') {
-            if (pressed) {
-                this.player.velocity.x = -this.player.moveSpeed;
-            } else {
-                this.player.velocity.x = 0;
-            }
-        } else if (keycode === 'ArrowRight') {
-            if (pressed) {
-                this.player.velocity.x = this.player.moveSpeed;
-            } else {
-                this.player.velocity.x = 0;
+    handleInput() {
+        let xVel = 0;
+        if (this.keys.isPressed('ArrowLeft')) {
+            xVel -= 5;
+        }
+        if (this.keys.isPressed('ArrowRight')) {
+            xVel += 5;
+        }
+
+        if (this.keys.isPressed('Space') && !this.keys.isHeld('Space')) {
+            if (!this.player.isJumping && this.player.onGround) {
+                this.player.velocity.y = -10;
+                this.player.isJumping = true;
+                this.player.onGround = false;
+                this.player.canDoubleJump = true;
+                console.log('jump');
+            } else if (this.player.canDoubleJump && this.player.isJumping) {
+                this.player.velocity.y = -10;
+                this.player.canDoubleJump = false;
+                console.log('double jump');
             }
         }
 
-        if (keycode === 'Space') {
-            if (pressed && !held) {
-                if (!this.player.isJumping) {
-                    this.player.velocity.y = -this.player.jumpPower;
-                    this.player.isJumping = true;
-                    this.canDoubleJump = true;
-                } else if (this.player.isJumping && this.canDoubleJump) {
-                    this.player.velocity.y = -this.player.jumpPower;
-                    this.canDoubleJump = false;
-                }
-            }
-        }
+        this.player.velocity.x = xVel;
     }
 
     draw() {
+        this.handleInput();
         this.context.fillStyle = 'black';
         this.context.fillRect(0, 0, canvas.width, canvas.height);
 
-        this.sprites.forEach(sprite => sprite.draw(this.context));
+        this.gameObjects.forEach(object => {
+            object.draw(this.context);
+            object.update();
+        });
 
         window.requestAnimationFrame(() => this.draw());
     }
 }
 
-class Player extends Sprite {
+class Player extends GameObject {
     constructor(x, y) {
-        super(x, y, 50, 50);
+        super(x, y);
         this.isJumping = false;
-        this.moveSpeed = 3;
+        this.onGround = false;
         this.canDoubleJump = false;
-        this.jumpPower = 10;
-        this.wallSlide = 0;
     }
 
     update() {
-        if (this.bounds.y + this.bounds.height + this.velocity.y >= canvas.height) {
-            this.velocity.y = 0;
-            this.isJumping = false;
-        } else {
-            this.velocity.y += GRAVITY - this.wallSlide;
-        }
-
-        if (this.bounds.x + this.velocity.x <= 0) {
-            this.velocity.x = 0;
-            this.wallSlide = 0.2;
-        } else if (this.bounds.x + this.bounds.width + this.velocity.x >= canvas.width) {
-            this.velocity.x = 0;
-            this.wallSlide = 0.2;
-        } else {
-            this.wallSlide = 0;
-        }
-        console.log(this.wallSlide)
         super.update();
-    }
-
-    draw(context) {
-        context.fillStyle = 'white';
-        super.draw(context);
+        // check ground collision
+        if (this.bounds.y + this.bounds.height >= canvas.height) {
+            this.isJumping = false;
+            this.onGround = true;
+            this.canDoubleJump = false;
+        }
     }
 }
 
@@ -96,9 +80,9 @@ const context = canvas.getContext('2d');
 const game = new Game(context);
 
 window.addEventListener('keydown', event => {
-    game.handleInput(event.code, true, event.repeat);
+    game.keys.addKey(event.code);
 });
 
 window.addEventListener('keyup', event => {
-    game.handleInput(event.code, false);
+    game.keys.removeKey(event.code);
 });

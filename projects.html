@@ -324,7 +324,7 @@
         // figure out which image is currently displayed
         let currentImage = images.findIndex(img => img.style.display == 'block');
         // figure out which image to display next
-        let nextImage = btn.classList.contains('chevron-right') ? currentImage + 1 : currentImage - 1;
+        let nextImage = btn.classList.contains('fa-chevron-right') ? currentImage + 1 : currentImage - 1;
         // if nextImage is out of bounds, wrap around
         if (nextImage < 0) {
             nextImage = images.length - 1;
