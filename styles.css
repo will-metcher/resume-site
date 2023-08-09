@@ -319,7 +319,6 @@ footer a:hover {
 .carousel-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     width: 100%;
     align-items: center;
 }
@@ -347,6 +346,7 @@ footer a:hover {
     max-width: 400px;
 }
 
+<<<<<<< HEAD
 .width-65 {
     width: 65%;
 }
@@ -357,10 +357,11 @@ footer a:hover {
     }
 }
 
+=======
+>>>>>>> parent of 712520e (Changed carousel to be responsive)
 @media screen and (max-width: 800px) {
     #projects {
         flex-direction: column;
-        margin: 0;
     }
 
     .card {
@@ -372,6 +373,7 @@ footer a:hover {
         width: 100%;
     }
 
+<<<<<<< HEAD
     .width-65 {
         width: 90%;
     }
@@ -403,4 +405,9 @@ footer a:hover {
       display: block;
       text-align: left;
     }
+=======
+    .projects-nav {
+        display: none;
+    }
+>>>>>>> parent of 712520e (Changed carousel to be responsive)
 }
